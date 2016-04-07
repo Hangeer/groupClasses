@@ -309,4 +309,100 @@
  				var a = 0.3-0.2;
 				console.log(a);
 				//	0.09999999999999998
-			+	p38
+			+  应用于对象时，先调用对象的 valueOf() 方法取得一个可以供操作的值，然后再对其使用上面的规则，如果是 NaN ，则在调用 toString() 方法后再使用上述规则
+			
+					var obj = {
+						valueOf: function () {
+							return -1;
+						}
+					}
+					console.log(obj++);
+					//	-1
+					console.log(obj);
+					//	0
+					
+					var obj = {
+						a = 1;
+						//	没有指定 valueOf() 方法的返回值
+					}
+					console.log(obj++);
+					//	NaN
+Object.prototype.valueOf() 方法，用来返回指定的原始值
+
++	一元加减操作符的特性和差不多
++	位操作符 操作二进制 不常用不讲
++ 	布尔操作符
+	+	逻辑非 （!）
+		+	操作对象，返回 false
+		+ 	空字符串 true
+		+  	非空字符串 false
+		+   0 true
+		+   任意非 0 数值（包括 Infinity）false
+		+   NaN true
+		+   null true
+		+   undefined true
+	+	逻辑非用来模拟 Boolean 操作符
+		!!
+	+	逻辑与
+		+	如果第一个操作是对象，则返回第二个操作数
+		+ 	如果两个参数都是对象，则只有在第一个对象的参数操作结果是 true 时候返回第二个对象
+				
+				var a = {},
+					b = 0,
+					c = {};
+				console.log(a && b);
+				//	0
+				console.log(a && c);
+				//	返回对象 c	
+		+	其中有一个参数为 NaN 或 Undefined 就返回 NaN 或 Undefined
++	== 和 === （重点理解）
+	+	相等和全等不是同一个概念
+	+ 	相等包含了隐式转换，全等没有
+	+   相等和不相等 == != 
+		+	使用这两个操作符的时候都会先转换操作数（强制转型），然后再比较他们的相等性
+		+ 	强制转型的规则：
+			+	如果有一个操作数是布尔值，则再比较之前先转换成数字 0 和 1
+			+	一个字符串一个数值，比较之前将字符串转换为数值
+			+ 	一个是对象一个不是，则调用对象的 valueOf() 方法
+			+   and so on
+		+	全等和不全等
+			+	全等的前提：值相等，类型相等
++	隐式类型转换
+	+	运算中存在，由运算符特性引起
+			
+			/* + 运算符 */
+			var num = 10;
+			var str = "20";
+			var c = num + str;
+			//	string "1020"
+			
+			/*  运算符 */
+			var d = num - str;
+			// number -10
+		使用 + - 运算符的特性就可以轻易转字符串和数字
+	+	语句中存在
+			
+			/* if 语句 */
+			var obj = {};
+			if (obj) {
+				console.log(1);
+			}		
+			//	1
+		if 里面的语句会被隐式转成 boolean 值，从而进行判断，while 语句同理
+		
+			/* for in 语句 */
+			var student = {
+				"name": "Driver",
+				"age": 20,
+				car: "benz"
+			}	
+			for (var key in student) {
+				console.log(typeof key);
+			}
+			
+			//	都是 string
+			
+			
+			
++	关于操作符和语句更多的看看高级程序设计第三章			
+						
