@@ -355,7 +355,7 @@ Object.prototype.valueOf() 方法，用来返回指定的原始值
 				console.log(a && c);
 				//	返回对象 c	
 		+	其中有一个参数为 NaN 或 Undefined 就返回 NaN 或 Undefined
-+	== 和 === （重点理解）
++	== 和 ===
 	+	相等和全等不是同一个概念
 	+ 	相等包含了隐式转换，全等没有
 	+   相等和不相等 == != 
@@ -403,6 +403,10 @@ Object.prototype.valueOf() 方法，用来返回指定的原始值
 			//	都是 string
 			
 			
+			String.prototype.fn = function(){return this};
+			var a = 'hello';
+			alert(typeof a.fn()); //-->object
+			alert(a.fn()); //-->hello
 			
 +	关于操作符和语句更多的看看高级程序设计第三章			
 						
