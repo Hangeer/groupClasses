@@ -107,4 +107,206 @@
 					}
 				另外还有对象不能有重名属性，函数不能有重名等，严格模式的存在是为了编码规范，以及为以后 ES 语法的写法做铺垫。
 		+	语句
-			+	推荐的写法是在每一句结尾加上分号，如果不加分号，则由解析器判断语句结束，建议不省略。		
+			+	推荐的写法是在每一句结尾加上分号，如果不加分号，则由解析器判断语句结束，建议不省略。
+			+ 	if 之类的条件语句，如果下面执行的代码只有一句
+					
+					if (a === 1) 
+						console.log(233);
+						
+				建议条件判断语句的代码后面都带上大括号
+					
+					if (a === 1) {
+						console.log(233);
+					}
+			+	关键字和保留字
+				+	保留字不能作为变量名或者属性名
+			+	变量
+				+	ES 的变量是松散型的，使用 var 可以声明所有类型的变量
+				+ 	对变量赋值会改变变量的类型
+					
+						var str = "redrock";
+						console.log(typeof str);
+						//	"string"
+						str = 0;
+						console.log(typeof str);
+						//	"number"
+			+	变量作用域（重点）
+				+	var 定义的变量是该定义域中的局部变量
+					
+						var outOfFunc = 1;
+						function func () {
+							var outOfFunc = 2;
+							console.log(outOfFunc);
+							//	2
+						}
+						console.log(outOfFunc);
+						//	1
+					先声明再使用，比较清晰
+					
+						var outOfFunc = 1;
+						function func () {
+							console.log(outOfFunc);
+							//	1
+						}
+						console.log(outOfFunc);
+						//	1
+					函数作用域没有，所以会到函数外的作用域去找有没有，有的话就输出，没有的话就继续往上一层寻找，如果全局都没有这个变量的话就返回 undefined
+					
+						var outOfFunc = 1;
+						function func () {
+							console.log(outOfFunc);
+							//	undefined
+							var outOfFunc = 2;
+						}
+						console.log(outOfFunc);
+						//	1		
+					函数里面的 outOfFunc 是等于外部的 1 还是 2 还是 undefined
+					
+					 原因：在某一个作用域下声明的所有变量，js 解析的时候回默认提到作用域首部声明，按顺序执行到赋值的时候再赋值，所以上面的代码相当于
+					 
+						 	var outOfFunc = 1;
+							function func () {
+								var outOfFunc;
+								console.log(outOfFunc);
+								//	undefined
+								outOfFunc = 2;
+							}
+							console.log(outOfFunc);
+							//	1	
+				+	在函数中定义一个变量，那么这个变量在函数退出后就会销毁
+				+ 	关于全局变量
+					+	有三种全局变量，一种是在全局作用域中使用 var 声明的，另一种是在局部作用域中，因为没有使用 var 导致变量作用域提升的，最后是使用 window.xxx 作为 window 对象的某一属性
+						
+							var global = "global";
+							function func () {
+								careless_global = "global";
+							}		
+							window.set_global = "global";
+					+	如何判断全局变量
+						
+							var a = "global";
+							console.log(a);
+							console.log(window.a);
+							console.log(window["a"]);
+						全局变量可以通过以上几种形式访问，可以看做是 window 对象的一个属性
+					+	显式声明和隐式声明的全局变量的异同
+						+	访问方式是相同的，在内存中保存的区域是相同的，生命周期也是相同的（整个程序）
+						+ 	使用 var 声明的全局变量不能用 delete 方法删除，而后两种是可以的
+						+  	尽量少用全局变量，原因：在不同的 js 中声明了相同的全局变量，在加载的过程中后声明的变量回覆盖掉先声明的变量，造成混乱
+					+	p.s: 推荐的 js 代码写法
+					
+							<script type="text/javascript">
+							    ;(function () {
+							    	// codes here
+							    	window.globalVariable = "global";
+							    })();
+							</script>
+							//	没有 jq 的
+							
+							<script type="text/javascript">
+							    $(function () {
+							    	//	codes here
+							    	window.globalVariable = "global";
+							    })();
+							</script>
+							//	有 jq 且代码立即执行
+							
+							<script type="text/javascript">
+							    $(document).ready(function () {
+							    	// codes here
+							    	window.globalVariable = "global";
+							    });
+							</script>
+							//	有 jq 且代码在文档加载之后再执行的
+							
+							
+						将整个 js 的代码包裹在一个立即执行的闭包函数中，需要全局变量的时候将它暴露出来即可，闭包函数前后都要加上分号，避免执行的时候变成前一个函数的参数 （Currying）
+						
+	+	数据类型
+		
+		+	ES 原始类型	
+			+ Undefined
+			+ Null
+			+ Boolean
+			+ Number
+			+ String
+		
+		+	js 数据类型				
+			+ 字符串
+			+ 数字
+			+ 布尔
+			+ 数组
+			+ 对象
+			+ NUll
+			+ Undefined
+		
+		+	js 内置对象
+			+ Object
+			+ Arguments (只存在于函数内)
+			+ Array
+			+ Boolean (0、NaN、null、空字符串和undefined都将转换成 false )
+			+ Date
+			+ Error
+			+ Function
+			+ Math
+			+ Number
+			+ RegExp
+			+ String						
+		
+		+	概念比较多，写代码的时候这些知识可能用不到，作为常识掌握，比如
+			+	数字中 Infinity 是个特数量
+			+ 	JS 在表示浮点数的时候有精度误差
+			+   Date 返回时间, 在计算的时候是通过时间戳来计算
+			+   对象方法
+			+   任意 js 值都可以转换为布尔值
+	+	操作符
+		+	包括算术操作符，位操作符，关系操作符，相等操作符，ES 的不同之处在于操作符在不同类型上都可以使用（字符串，数字，布尔值）。在运用到对象上的时候会调用对象的 valueOf() 和 toString() 方法，以便取得可以操作的值
+		+ 	一元操作符： 定义：只能操作一个值的操作符
+			+	递增/减 
+					
+					var foo, bar;
+					foo = 20;
+					bar = 20;
+					
+					console.log(foo++ + 2);
+					//	22
+					console.log(foo);
+					//	21
+					console.log(--bar + 2);
+					//	21
+					console.log(bar);
+					//	19
+			不仅值用于数字，还能用于一切 js	能够转成数值计算的值，只需要遵守一定规则
+				
+			+	应用于包含数字的一串字符串中，先将其转化成数字值，再进行操作
+				
+					var str = "233";
+					console.log(str++);
+					//	233
+					console.log(str);
+					//	234
+					console.log(typeof str);
+					//	number
+			会发生隐式类型转换，适用情况：字符串里面是纯数字，数字前后可以有空格
+			+	用于不能有效转化成数字的字符串，返回 NaN
+					
+					var str = "blablabla233";
+					console.log(str++);
+					//	NaN
+			不能有效转换成数字，使用情况：有字符，字符串是纯数字，但数字中间有空格等情况
+			+	在应用布尔值 false 时，现将其转化为 0 再执行 +1 操作
+					
+					var boo = false;
+					console.log(boo++);
+					//	0
+					console.log(boo);
+					//	1 
+				也会有隐式转换，会从布尔值转换成数字
+ 			+	浮点数时，加减 1
+ 			
+ 			> **但是 js 在处理浮点数的情况下会有偏差这是语言特性导致的（也叫精度丢失），不可避免** Javascript采用了IEEE-745浮点数表示法（几乎所有的编程语言都采用），这是一种二进制表示法，可以精确地表示分数，比如1/2，1/8，1/1024。遗憾的是，我们常用的分数（特别是在金融的计算方面）都是十进制分数1/10，1/100等。二进制浮点数表示法并不能精确的表示类似0.1这样 的简单的数字，上诉代码的中的x和y的值非常接近最终的正确值，这种计算结果可以胜任大多数的计算任务：这个问题也只有在比较两个值是否相等时才会出现.
+ 			
+ 				var a = 0.3-0.2;
+				console.log(a);
+				//	0.09999999999999998
+			+	p38
