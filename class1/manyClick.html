@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Closure</title>
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .block {
+        width: 50px;
+        height: 50px;
+        background-color: #ccc;
+        display: inline-block;
+        margin-left: 10px;
+    }
+</style>    
+</head>
+<body>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+<script type="text/javascript">
+    ;(function () {
+        var blocks = document.querySelectorAll('.block');
+        var i, len = blocks.length;
+        for (i = 0; i < len; i++) {
+            (function (i) {
+                blocks[i].onclick = function () {
+                    console.log(i);
+                };
+            })(i);
+        }
+        /*
+        *   点击每一个方块，看到控制台都是输出 3
+        *   onclick 的匿名函数里有个闭包，闭包里的所有 i 就是指向的同一个内存区域，外面的 i 的值变的时候，里面的值也会变，最后停留在循环后的最终值
+        */
+
+        //  解决方法：在绑的时候再在里面创建一个闭包
+        /*
+        *   for (i = 0; i < len; i++) {
+        *       (function (i) {
+        *           blocks[i].onclick = function () {
+        *               console.log(i);
+        *           };
+        *       })(i)
+        *   }
+        */
+
+        //  最后记住：遇到类似情况绑事件请一定用 事件委托
+    })();
+</script>    
+</body>
+</html>

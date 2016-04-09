@@ -48,7 +48,9 @@
 					
 					正确的食用方法
 						
-						<script type="text/javascript" src="./path/xxx.js"></script>
+						<script type="text/javascript" src="./path/xxx.js">
+						
+						</script>
 					值得注意的是：
 						
 					+	引入的 js 标签里面就不要写其他代码了，写了是白写的
