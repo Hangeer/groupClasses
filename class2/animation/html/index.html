@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Animation Demo</title>
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+
+        width: 200px;
+        height: 200px;
+        
+        background-image: url('../imgs/img-1.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+    .move {
+        animation: emoji 5s;
+        animation-direction: alternate;
+    }
+    @keyframes emoji {
+        0% {
+            margin-left: 0;
+            margin-top: 0;
+            transform: skew(0, 0);
+        }
+        10% {
+            margin-left: 50px;
+            margin-top: 50px;
+            transform: skew(0, 45deg);
+        }
+        20% {
+            margin-left: 50px;
+            margin-top: 50px;
+            transform: skew(0, 0);
+        }
+        30% {
+            margin-left: 100px;
+            margin-top: 50px;
+            transform: rotate(90deg);
+        }
+        40% {
+            transform: scale(2);
+            background-image: url('../imgs/img-1.png');
+        }
+        50% {
+            transform: scale(4);
+            transform: rotate(180deg);
+        }
+        60% {
+            margin-left: 300px;
+            margin-top: 200px;
+        }
+        70% {
+            margin-left: 500px;
+            margin-top: 300px;
+            transform: scale(4);
+            background-image: url('../imgs/img-2.png');
+        }
+        80% {
+            margin-left: 50px;
+            margin-top: 50px;
+            transform: skew(0, 0);
+        }
+        100% {
+            margin-left: 0;
+            margin-top: 0;
+            transform: rotate(360deg);
+        }
+    }
+    #btn {
+        font-size: 50px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+                
+    </div>
+    <input id="btn" type="button" value="我只要按下这个按钮，就会...">
+    
+    </input>
+
+<script type="text/javascript">
+    (function () {
+        var container = document.querySelector(".container");
+        var flag = false;
+        var timer = null;
+
+        function addClass (element, className) {
+            element.className = element.className.trim();
+            element.className += " ";
+            element.className += className;
+        }
+        function removeClass (element, className) {
+            var arr = element.className.split(" ");
+
+            arr.forEach(function (item, index) {
+                if (item == className) {
+                    arr[index] = "";
+                } 
+            });
+
+            element.className = arr.join(" ").trim();
+        }
+        function toggleClass (element, className) {
+
+            var arr = element.className.split(" ");
+            var flag = true;
+            
+            arr.forEach(function (item, index) {
+                if (item == className) {
+                    removeClass(element, className);
+                    flag = false;
+                }
+            });
+
+            if (flag) addClass(element, className);
+        }
+
+        document.querySelector("#btn").addEventListener('click', function () {
+            if (!flag) {
+                flag = true;
+                addClass(container, "move");
+                timer = window.setInterval(function () {
+                    toggleClass(container, "move");
+                    window.setTimeout(function () {
+                        toggleClass(container, "move");
+                    }, 50);
+                }, 5000);
+
+            } else {
+                return;
+            }
+        })
+
+    } ());
+</script>    
+</body>
+</html>

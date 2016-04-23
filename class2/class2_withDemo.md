@@ -17,7 +17,6 @@
 	+	CSS3 选择器
 	+ 	2D/3D 转换
 	+  	动画
-	+   apperance 属性 (待确定)
 
 +	一点点选择器方面
 	+	element1~element2 (选择前面有 element1 的 element2 元素 (ele1 ele2 是同级的，出现在文档流中的先后顺序，不需要相邻先后))
@@ -38,12 +37,13 @@
 	+  	translate(x, y) 位移
 	+ 	rotate(degree) 旋转 圆心是以这个元素的中心
 	+  	scale(x, y) 缩放
-	+   skew(xDgree, yDegree) 倾斜变形（高中数学 投影）
+	+   skew(xDegree, yDegree) 倾斜变形（高中数学 投影）
 	+   matrix() 矩阵变换，如果一个元素同时进行以上的多种变化，用这个
 	+  	tips: 使用 CSS3 属性之后，元素在文档流中占的仍然是原来的位置
 	+   2d 转换是在 x 轴 y 轴上面进行的转换，3d 在以上转换的基础上增加了 z 轴上面的变换
 
 +	动画效果
+	+	手动开启 GPU 渲染：使用 CSS3 动画
 	+	写动画也分大概两种 transition 和 animation 
 	+ 	transition 是过渡，从一个状态过渡到另一个状态，原生默认过渡的运动方式遵循贝赛尔曲线（慢-快-慢），看起来比较自然，优点是写起来比较方便，来看看一个过渡需要写点啥
 		+	属性名 transition
@@ -64,8 +64,8 @@
 	+  	了解 @keyframes 规则
 			
 			@keyframes xxx {
-				from (propName: xx);
-				to (propname: xx);
+				from {propName: xx};
+				to {propName: xx};
 			}
 			element {
 				animation: xxx 2s; // 要加时间 默认是 0，也就是没有动画
@@ -73,9 +73,9 @@
 	+	使用百分比来控制动画执行过程
 			
 			@keyframes xxx {
-				0% (propName: xxxx);
-				50% (propName: xxxxx);
-				100% (propName: xxxxxx);
+				0% {propName: xxxx};
+				50% {propName: xxxx};
+				100% {propName: xxxx};
 			}
 	+	参数
 		+	animation-name 动画名称 （必须）
@@ -87,6 +87,8 @@
 		+   animation-play-state 动画是否正在运行或者暂停 （选择，默认 running）
 		+   animation （以上所有属性的简写）
 
+	+	使用 setInterval SetTimeout 去实现连续的动画
+	
 +	介绍下关于写 CSS 的有用的东西
 	+	autoprefixer -> 帮助补全前缀
 	+ 	less -> 很方便书写样式
@@ -194,4 +196,6 @@
 		+  	search()
 		
 	+	解决实际问题
-		+	我们来写一个 trim 方法
+		+	我们来写一个类似 trim 的方法，起名为 myTrim，先用字符串方法，再用正则
+		+ 	匹配邮箱（这种要用的时候百度一般就有了）
+		+  	toogleClass 方便的多
