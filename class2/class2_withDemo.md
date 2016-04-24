@@ -39,6 +39,7 @@
 	+  	scale(x, y) 缩放
 	+   skew(xDegree, yDegree) 倾斜变形（高中数学 投影）
 	+   matrix() 矩阵变换，如果一个元素同时进行以上的多种变化，用这个
+	+   http://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/comment-page-2/
 	+  	tips: 使用 CSS3 属性之后，元素在文档流中占的仍然是原来的位置
 	+   2d 转换是在 x 轴 y 轴上面进行的转换，3d 在以上转换的基础上增加了 z 轴上面的变换
 
@@ -48,7 +49,7 @@
 	+ 	transition 是过渡，从一个状态过渡到另一个状态，原生默认过渡的运动方式遵循贝赛尔曲线（慢-快-慢），看起来比较自然，优点是写起来比较方便，来看看一个过渡需要写点啥
 		+	属性名 transition
 		+ 	transition-property 需要过渡的属性 （必须）
-		+  	transition-duration 过渡时间	（必须）
+		+  	transition-duration 过渡时间	（只写过渡 必须， 配合 animation 写，不必须）
 		+   transition-timing-function 规定过渡效果的时间曲线 （选择，默认是 ease）
 		+   transition-delay 执行过渡之前的延迟时间 （选择，默认是立即执行）
 	+	这几个属性可以分开写，当然建议的写法还是写到一行
@@ -143,7 +144,7 @@
 			
 			/[^4-9]est/;
 	
-	+	如果我想在正则表达式中匹配特殊字符？ -> 转义
+	+	如果我想在正则表达式中匹配特殊字符？ -> 转义 \
 
 	+	匹配开始和结束 
 		
@@ -186,16 +187,15 @@
 			/<(\w+)>(.+)<\/\1>/
 			
 	+	正则表达式的方法
-		+	test()
-		+	exec()
-		+ 	compile()
+		+	test() 测试能不能匹配到，返回 true false
+		+	exec()	测试是否满足， 返回匹配到的字符串 null
+		+ 	compile() 编译，在贪婪匹配的时候提高性能
 
 	+	String 对象上也有和正则有关的方法
-		+	match()
+		+	match()	
 		+ 	replace()
 		+  	search()
 		
 	+	解决实际问题
 		+	我们来写一个类似 trim 的方法，起名为 myTrim，先用字符串方法，再用正则
-		+ 	匹配邮箱（这种要用的时候百度一般就有了）
 		+  	toogleClass 方便的多

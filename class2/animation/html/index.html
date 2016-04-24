@@ -23,25 +23,14 @@
         animation-direction: alternate;
     }
     @keyframes emoji {
-        0% {
-            margin-left: 0;
-            margin-top: 0;
-            transform: skew(0, 0);
-        }
         10% {
-            margin-left: 50px;
-            margin-top: 50px;
-            transform: skew(0, 45deg);
+            transform: translate(50px, 50px) skew(0, 45deg);
         }
         20% {
-            margin-left: 50px;
-            margin-top: 50px;
-            transform: skew(0, 0);
+            transform: translate(50px, 50px);
         }
         30% {
-            margin-left: 100px;
-            margin-top: 50px;
-            transform: rotate(90deg);
+            transform: translate(50px, 50px) rotate(90deg);
         }
         40% {
             transform: scale(2);
@@ -52,24 +41,17 @@
             transform: rotate(180deg);
         }
         60% {
-            margin-left: 300px;
-            margin-top: 200px;
+            transform: translate(200px, 100px);
         }
         70% {
-            margin-left: 500px;
-            margin-top: 300px;
-            transform: scale(4);
+            transform: translate(500px, 300px) scale(4);
             background-image: url('../imgs/img-2.png');
         }
         80% {
-            margin-left: 50px;
-            margin-top: 50px;
-            transform: skew(0, 0);
+            transform: translate(50px, 50px) skew(0, 0);
         }
         100% {
-            margin-left: 0;
-            margin-top: 0;
-            transform: rotate(360deg);
+            transform: translate(0, 0) rotate(360deg);
         }
     }
     #btn {
