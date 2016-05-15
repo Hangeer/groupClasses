@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="template" id="template">
+        
+    </div>
+
+<script type="text/javascript">
+    ;(function () {
+        function templateEngine (tpl, obj, element) {
+            var _reg = /<%([^%>]+)?%>/g;
+            var _match = [];
+            var _data = [];
+
+            while (_match = _reg.exec(tpl)) {
+                tpl = tpl.replace(_match[0], obj[_match[1].trim()]);
+            }
+
+            element.innerHTML = tpl;
+        }
+
+        var template = [
+            '<p>',
+            'Hello, name is <% name %>,',
+            'I can play <% instrument %>.',
+            '</p>'
+        ].join(" ");
+
+        templateEngine(template, {
+            name: 'Yaerma',
+            instrument: 'guitar'
+        }, document.querySelector('#template'));
+
+    })();
+</script>    
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="template" id="template">
+        
+    </div>
+
+<script type="text/javascript">
+    ;(function () {
+        function templateEngine (tpl, obj, element) {
+            var _reg = /<%([^%>]+)?%>/g;
+            var _match = [];
+            var _data = [];
+
+            while (_match = _reg.exec(tpl)) {
+                tpl = tpl.replace(_match[0], eval('obj.' + _match[1].replace(/^(\s+)|(\s+)$/g, ""));
+            }
+
+            element.innerHTML = tpl;
+        }
+
+        function returnVal (obj, prop) {
+
+        }
+
+        var template = [
+            '<p>',
+            'Hello, name is <% name %>,',
+            'I am <% profile.age %> years old.',
+            'My gender is <% profile.gender %>.',
+            '</p>'
+        ].join(" ");
+
+        templateEngine(template, {
+            name: 'Yaerma',
+            profile: {
+                age: '20',
+                gender: 'female'
+            }
+        }, document.querySelector('#template'));
+
+    })();
+</script>    
+</body>
+</html>
