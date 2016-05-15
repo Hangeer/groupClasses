@@ -1,10 +1,13 @@
 ### 然后...讲一下正则表达式
 
 ####	基本概念 BLABLABLA
-+	正则表达式是啥，拿来做什么
++	正则表达式
+	-	一种字符串的匹配模式，使用单个字符串来描述、匹配一系列匹配某个句法规则的字符串。在很多文本编辑器里，正则表达式通常被用来检索、替换那些匹配某个模式的文本
+
 +	创建
 	+	对象字面量
 	+ 	new 一个实例
+		- 	检索模式 g（全局） i（区分大小写） m （多行）
 +  	词法
 	+	元字符（匹配一位）
 
@@ -21,6 +24,7 @@
 	+	字符转义
 		
 		在前面加个转义字符 \ ，有的时候匹配符号(比如说尖括号)其实不需要加转义符号，但是加了也没事儿
+	
 	+	重复 贪婪匹配
 		
 		| 词法      | 作用         | 
@@ -82,7 +86,6 @@
 	+	var reg = new RegExp(str_patt, str_methord);
 	
 		-	第一个参数是表达式，第二个参数是检索模式
-		- 	检索模式 g（全局） i（区分大小写） m （多行）
 	
 	+	test
 		
@@ -97,7 +100,7 @@
 
 	+	compile 
 
-		-	用于改写正则表达式
+		-	编译正则表达式，用于讲一个表达式用新的方法改写，提高了正则表达式的适应性
 
 +	String 上的正则表达式方法
 	
@@ -131,4 +134,42 @@
 			
 +	http://www.codewars.com/kata/56baeae7022c16dd7400086e
 
-+	时间够的话就再讲一个炒鸡简陋正则表达式模板引擎，不够的话就少写点
+			function phone(string, num) {
+			    var reg = new RegExp(num, "g");
+			    var count = 0;
+			    var res = {};
+			    var returnStr = '';
+			
+			    do {
+			        res = reg.exec(string);
+			        count++
+			    } while (res !== null)
+			
+			    switch (count) {
+			        case 1:
+			            returnStr = "Error => Not found: " + num;
+			        break;
+			        case 2:
+			            returnStr = retStr(string, num);
+			        break;
+			        default:
+			            returnStr = "Error => Too many people: " + num;
+			        break;        
+			    }
+			
+			    function retStr (string, num) {
+			        var _reg = new RegExp("(\n|\/).*" + num + ".*\n", "g");
+			        var _res = string.match(_reg)[0].replace(/\n|\/|.\+|\,|\;|\+|\_|\!|\?/g, " ");
+			
+			        var _phone = _res.match(/(\d{1,}\-){3}\d{1,}/g)[0];
+			        var _name = _res.match(/<.*>/g)[0].replace(/<|>/g, "");
+			        var _addr = _res.replace(/((\d{1,}\-){3}\d{1,})|(<.*>)/g, "").replace(/\s{1,}/g, " ").replace(/^(\s+)|(\s+)$/g, "");
+			
+			        return "Phone => " + _phone + ", Name => " + _name + ", Address => " + _addr;
+			    }
+			
+			    return returnStr;
+	}
+
+
+	/*时间够的话就再讲一个炒鸡简陋正则表达式模板引擎，不够的话就少写点*/
